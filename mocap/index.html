@@ -4,26 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>移転のお知らせ - Mocap Plus</title>
+    <!-- キャッシュ無効化のためのメタタグ -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <meta name="theme-color" content="#f5f5f7">
     <style>
         :root {
-            /* Appleの標準的なカラーパレットを意識 */
-            --apple-bg: #f5f5f7;
-            --apple-card-bg: #ffffff;
-            --apple-text-main: #1d1d1f;
-            --apple-text-sub: #86868b;
-            --apple-blue: #0071e3;
-            --apple-blue-hover: #0077ed;
+            var(--apple-bg): #f5f5f7;
+            var(--apple-card-bg): #ffffff;
+            var(--apple-text-main): #1d1d1f;
+            var(--apple-text-sub): #86868b;
+            var(--apple-blue): #0071e3;
+            var(--apple-blue-hover): #0077ed;
         }
 
         body {
-            /* SF Proを最優先とし、Appleデバイスでの美しい描画を担保 */
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: var(--apple-bg);
-            color: var(--apple-text-main);
+            background-color: #f5f5f7;
+            color: #1d1d1f;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -32,12 +35,9 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* モダンでクリーンなカードUI */
         .card {
-            background-color: var(--apple-card-bg);
-            /* 大きく滑らかな角丸 */
+            background-color: #ffffff;
             border-radius: 24px;
-            /* 広範囲に柔らかく落ちる影 */
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
             padding: 48px 40px;
             text-align: center;
@@ -46,7 +46,6 @@
             box-sizing: border-box;
         }
 
-        /* アプリアイコン（Squircle形状） */
         .app-icon {
             width: 88px;
             height: 88px;
@@ -55,13 +54,12 @@
             margin-bottom: 24px;
         }
 
-        /* タイポグラフィの調整 */
         h2 {
             font-size: 24px;
             font-weight: 600;
             letter-spacing: -0.01em;
             margin: 0 0 12px 0;
-            color: var(--apple-text-main);
+            color: #1d1d1f;
         }
 
         .description {
@@ -73,7 +71,7 @@
             line-height: 1.47059;
             font-weight: 400;
             letter-spacing: -0.022em;
-            color: var(--apple-text-sub);
+            color: #86868b;
             margin: 0 0 12px 0;
         }
 
@@ -81,12 +79,11 @@
             margin-bottom: 0;
         }
 
-        /* Apple標準UI風のボタン */
         .btn-primary {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background-color: var(--apple-blue);
+            background-color: #0071e3;
             color: #ffffff;
             font-size: 15px;
             font-weight: 600;
@@ -99,7 +96,7 @@
         }
 
         .btn-primary:hover {
-            background-color: var(--apple-blue-hover);
+            background-color: #0077ed;
             transform: scale(1.02);
         }
 
@@ -115,8 +112,7 @@
 </head>
 <body>
     <div class="card">
-        <!-- アプリアイコン -->
-        <img src="icons/newicon-192.png" alt="Mocap Plus Icon" class="app-icon">
+        <img src="icons/newicon-192.png" alt="Mocap Plus Icon" class="app-icon" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'88\' height=\'88\' viewBox=\'0 0 88 88\'><rect width=\'88\' height=\'88\' fill=\'%23e5e5ea\' rx=\'20\'/><text x=\'50%\' y=\'50%\' fill=\'%238e8e93\' font-family=\'sans-serif\' font-size=\'14\' text-anchor=\'middle\' dy=\'.3em\'>Icon</text></svg>'">
         
         <h2>アプリ移転のお知らせ</h2>
         
@@ -126,11 +122,54 @@
             <p>お手数をおかけいたしますが、ブックマーク等にご登録いただいている場合は、新しいURLへのご変更をお願いいたします。</p>
         </div>
         
-        <!-- 以下の href の中身を新しいURLに書き換えてください -->
         <a href="https://minoru-s.github.io/mocap/" class="btn-primary">
             新しいアプリを開く
             <span class="material-icons">open_in_new</span>
         </a>
     </div>
+
+    <!-- キャッシュ強制クリアとService Worker解除のスクリプト -->
+    <script>
+        // 1. Service Workerの登録を解除
+        if ('serviceWorker' in navigator) {
+            try {
+                navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                    for (let registration of registrations) {
+                        registration.unregister().then(function(boolean) {
+                            console.log('Service Worker unregistered:', boolean);
+                        }).catch(function(error) {
+                            console.warn('Service Worker unregistration failed:', error);
+                        });
+                    }
+                }).catch(function(error) {
+                    console.warn('Failed to get ServiceWorker registrations:', error);
+                });
+            } catch (error) {
+                console.warn('ServiceWorker API is restricted in this environment:', error);
+            }
+        }
+
+        // 2. Cache Storageのキャッシュをすべて削除
+        if ('caches' in window) {
+            try {
+                caches.keys().then(function(keyList) {
+                    return Promise.all(keyList.map(function(key) {
+                        console.log('Deleting cache:', key);
+                        return caches.delete(key);
+                    }));
+                }).then(function() {
+                    // キャッシュ削除後、初回のみリロードして最新のHTMLを確実に見せる
+                    if (!sessionStorage.getItem('reloaded_for_update')) {
+                        sessionStorage.setItem('reloaded_for_update', 'true');
+                        window.location.reload(true);
+                    }
+                }).catch(function(error) {
+                    console.warn('Cache clearing failed:', error);
+                });
+            } catch (error) {
+                console.warn('Caches API is restricted in this environment:', error);
+            }
+        }
+    </script>
 </body>
 </html>
