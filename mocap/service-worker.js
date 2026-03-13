@@ -1,5 +1,5 @@
 // キャッシュ名を更新して古いキャッシュとの紐付けを切る
-const CACHE_NAME = 'mocap-plus-migration-clear-v1';
+const CACHE_NAME = 'mocap-plus-migration-clear-v2';
 
 self.addEventListener('install', (event) => {
     // 待機状態をスキップし、即座に新しいService Workerをインストール
