@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>移転のお知らせ - Mocap Plus</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="theme-color" content="#f5f5f7">
+    <style>
+        :root {
+            /* Appleの標準的なカラーパレットを意識 */
+            --apple-bg: #f5f5f7;
+            --apple-card-bg: #ffffff;
+            --apple-text-main: #1d1d1f;
+            --apple-text-sub: #86868b;
+            --apple-blue: #0071e3;
+            --apple-blue-hover: #0077ed;
+        }
+
+        body {
+            /* SF Proを最優先とし、Appleデバイスでの美しい描画を担保 */
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--apple-bg);
+            color: var(--apple-text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* モダンでクリーンなカードUI */
+        .card {
+            background-color: var(--apple-card-bg);
+            /* 大きく滑らかな角丸 */
+            border-radius: 24px;
+            /* 広範囲に柔らかく落ちる影 */
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            padding: 48px 40px;
+            text-align: center;
+            max-width: 420px;
+            width: calc(100% - 40px);
+            box-sizing: border-box;
+        }
+
+        /* アプリアイコン（Squircle形状） */
+        .app-icon {
+            width: 88px;
+            height: 88px;
+            border-radius: 22.5%;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+            margin-bottom: 24px;
+        }
+
+        /* タイポグラフィの調整 */
+        h2 {
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            margin: 0 0 12px 0;
+            color: var(--apple-text-main);
+        }
+
+        .description {
+            margin-bottom: 36px;
+        }
+
+        .description p {
+            font-size: 15px;
+            line-height: 1.47059;
+            font-weight: 400;
+            letter-spacing: -0.022em;
+            color: var(--apple-text-sub);
+            margin: 0 0 12px 0;
+        }
+
+        .description p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Apple標準UI風のボタン */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--apple-blue);
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            padding: 14px 28px;
+            border-radius: 14px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0, 113, 227, 0.2);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--apple-blue-hover);
+            transform: scale(1.02);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        .btn-primary .material-icons {
+            font-size: 18px;
+            margin-left: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <!-- アプリアイコン -->
+        <img src="icons/newicon-192.png" alt="Mocap Plus Icon" class="app-icon">
+        
+        <h2>アプリ移転のお知らせ</h2>
+        
+        <div class="description">
+            <p>いつもご利用いただきありがとうございます。</p>
+            <p>開発者のGitHubアカウント名変更に伴い、<br>Mocap PlusのアクセスURLが新しくなりました。</p>
+            <p>お手数をおかけいたしますが、ブックマーク等にご登録いただいている場合は、新しいURLへのご変更をお願いいたします。</p>
+        </div>
+        
+        <!-- 以下の href の中身を新しいURLに書き換えてください -->
+        <a href="https://minoru-s.github.io/mocap/" class="btn-primary">
+            新しいアプリを開く
+            <span class="material-icons">open_in_new</span>
+        </a>
+    </div>
+</body>
+</html>
