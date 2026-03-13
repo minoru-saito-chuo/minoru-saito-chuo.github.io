@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>移転のお知らせ - Mocap Plus</title>
-    <!-- キャッシュ無効化のためのメタタグ -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -13,36 +12,38 @@
     <meta name="theme-color" content="#f5f5f7">
     <style>
         :root {
-            var(--apple-bg): #f5f5f7;
-            var(--apple-card-bg): #ffffff;
-            var(--apple-text-main): #1d1d1f;
-            var(--apple-text-sub): #86868b;
-            var(--apple-blue): #0071e3;
-            var(--apple-blue-hover): #0077ed;
+            --apple-bg: #f5f5f7;
+            --apple-card-bg: #ffffff;
+            --apple-text-main: #1d1d1f;
+            --apple-text-sub: #86868b;
+            --apple-blue: #0071e3;
+            --apple-blue-hover: #0077ed;
+            --apple-border: #e5e5ea;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
             margin: 0;
-            padding: 0;
-            background-color: #f5f5f7;
-            color: #1d1d1f;
+            padding: 20px;
+            background-color: var(--apple-bg);
+            color: var(--apple-text-main);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            box-sizing: border-box;
         }
 
         .card {
-            background-color: #ffffff;
+            background-color: var(--apple-card-bg);
             border-radius: 24px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
             padding: 48px 40px;
             text-align: center;
-            max-width: 420px;
-            width: calc(100% - 40px);
+            max-width: 480px;
+            width: 100%;
             box-sizing: border-box;
         }
 
@@ -59,7 +60,7 @@
             font-weight: 600;
             letter-spacing: -0.01em;
             margin: 0 0 12px 0;
-            color: #1d1d1f;
+            color: var(--apple-text-main);
         }
 
         .description {
@@ -68,10 +69,10 @@
 
         .description p {
             font-size: 15px;
-            line-height: 1.47059;
+            line-height: 1.5;
             font-weight: 400;
-            letter-spacing: -0.022em;
-            color: #86868b;
+            letter-spacing: -0.015em;
+            color: var(--apple-text-sub);
             margin: 0 0 12px 0;
         }
 
@@ -83,7 +84,7 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background-color: #0071e3;
+            background-color: var(--apple-blue);
             color: #ffffff;
             font-size: 15px;
             font-weight: 600;
@@ -93,10 +94,11 @@
             text-decoration: none;
             transition: all 0.2s ease;
             box-shadow: 0 2px 4px rgba(0, 113, 227, 0.2);
+            margin-bottom: 40px;
         }
 
         .btn-primary:hover {
-            background-color: #0077ed;
+            background-color: var(--apple-blue-hover);
             transform: scale(1.02);
         }
 
@@ -107,6 +109,131 @@
         .btn-primary .material-icons {
             font-size: 18px;
             margin-left: 8px;
+        }
+
+        /* === PWA再インストール手順のスタイル === */
+        .pwa-guide {
+            text-align: left;
+            border-top: 1px solid var(--apple-border);
+            padding-top: 32px;
+        }
+
+        .pwa-guide h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--apple-text-main);
+            margin: 0 0 16px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .pwa-guide h3 .material-icons {
+            font-size: 20px;
+            margin-right: 8px;
+            color: var(--apple-text-sub);
+        }
+
+        /* セグメントコントロール風のタブ */
+        .tabs {
+            display: flex;
+            background-color: #e3e3e8; /* Appleの標準的なグレー */
+            border-radius: 8px;
+            padding: 3px;
+            margin-bottom: 24px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 8px 12px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--apple-text-sub);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn.active {
+            background-color: #ffffff;
+            color: var(--apple-text-main);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 手順のレイアウト */
+        .step-item {
+            display: flex;
+            margin-bottom: 24px;
+        }
+
+        .step-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-number {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            background-color: var(--apple-blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 13px;
+            font-weight: 600;
+            margin-right: 12px;
+            margin-top: 2px;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-content p {
+            margin: 0 0 12px 0;
+            font-size: 14px;
+            color: var(--apple-text-main);
+            line-height: 1.5;
+        }
+
+        /* 画像配置用のプレースホルダー */
+        .image-placeholder {
+            width: 100%;
+            height: 140px;
+            background-color: #f0f0f5;
+            border: 1px dashed #c7c7cc;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--apple-text-sub);
+            font-size: 13px;
+        }
+
+        /* 実際の画像を配置したときのスタイル */
+        .step-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid var(--apple-border);
+            display: block; /* 隙間調整 */
         }
     </style>
 </head>
@@ -119,57 +246,179 @@
         <div class="description">
             <p>いつもご利用いただきありがとうございます。</p>
             <p>開発者のGitHubアカウント名変更に伴い、<br>Mocap PlusのアクセスURLが新しくなりました。</p>
-            <p>お手数をおかけいたしますが、ブックマーク等にご登録いただいている場合は、新しいURLへのご変更をお願いいたします。</p>
+            <p>お手数をおかけいたしますが、ブックマークなどにご登録いただいている場合は、新しいURLへのご変更をお願いいたします。</p>
         </div>
         
-        <a href="https://minoru-s.github.io/mocap/" class="btn-primary">
+        <a href="https://minoru-saito-chuo.github.io/mocap/" class="btn-primary">
             新しいアプリを開く
             <span class="material-icons">open_in_new</span>
         </a>
+
+        <!-- PWA再インストール手順セクション -->
+        <div class="pwa-guide">
+            <h3>
+                <span class="material-icons">install_mobile</span>
+                アプリの再インストール手順
+            </h3>
+            
+            <!-- タブ切替ボタン -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab(event, 'chrome')">Chrome</button>
+                <button class="tab-btn" onclick="switchTab(event, 'edge')">Edge</button>
+                <button class="tab-btn" onclick="switchTab(event, 'safari')">Safari</button>
+            </div>
+
+            <!-- ▼▼▼ Chromeの手順 ▼▼▼ -->
+            <div id="tab-chrome" class="tab-content active">
+  
+                
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <p>新しいアプリをインストールする：Google Chromeで<a href="https://minoru-s.github.io/mocap/" target="_blank">https://minoru-s.github.io/mocap/</a>にアクセスし，Chromeの右上のメニューから「キャスト、保存、共有」を選択し，「Mocap Plusをインストール…」を押下する．</p>
+                        <!-- <div class="image-placeholder">画像 (Chrome 手順2)</div> -->
+                        <img src="img/chrome2.png" alt="インストールの手順" class="step-image"> 
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <p>古いアプリをアンインストールする：移転のお知らせが出ている古いアプリのウィンドウの右上のメニューから，「Mocap Plusをアンインストール…」を押下する．</p>
+                        <!-- 画像を配置する場所。実際の画像を使う場合は、下の <img> タグのコメントアウトを外し、プレースホルダーを削除してください -->
+                        <!-- <div class="image-placeholder">画像 (Chrome 手順1)</div> -->
+                        <img src="img/chrome1.png" alt="アンインストールの手順" class="step-image"> 
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            <!-- ▼▼▼ Edgeの手順 ▼▼▼ -->
+            <div id="tab-edge" class="tab-content">
+                
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <p>新しいアプリをインストールする：Microsoft Edgeで<a href="https://minoru-s.github.io/mocap/" target="_blank">https://minoru-s.github.io/mocap/</a>にアクセスし，Edgeの右上のメニューから「アプリ」を選択し，「Mocap Plusのインストール」を押下する．</p>
+                        <!-- <div class="image-placeholder">画像 (Chrome 手順2)</div> -->
+                        <img src="img/edge1.png" alt="インストールの手順" class="step-image"> 
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <p>古いアプリをアンインストールする①：移転のお知らせが出ている古いアプリのウィンドウの右上のメニューから，「アプリの設定」を押下する．</p>
+                        <img src="img/edge2.png" alt="インストールの手順" class="step-image"> 
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <p>古いアプリをアンインストールする②：アプリの設定画面の左下にある「アンインストール」を押下する．</p>
+                        <img src="img/edge3.png" alt="インストールの手順" class="step-image"> 
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ▼▼▼ Safari (iOS)の手順 ▼▼▼ -->
+            <div id="tab-safari" class="tab-content">
+                
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <p>新しいアプリをインストールする：Safariで<a href="https://minoru-s.github.io/mocap/" target="_blank">https://minoru-s.github.io/mocap/</a>にアクセスし，Safariの右上のメニューから選択し，「Dockに追加」を押下する．</p>
+                        <img src="img/safari1.png" alt="インストールの手順" class="step-image"> 
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <p>古いアプリをアンインストールする：Finderで「ユーザ名/アプリケーション」を開き，古い方のMocap Plusをゴミ箱に入れる．※アイコンも名称も同じため削除する前に一度開き，古い方がどちらであるかを確認しておくと良い．</p>
+                        <img src="img/safari2.png" alt="インストールの手順" class="step-image"> 
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
     </div>
 
-    <!-- キャッシュ強制クリアとService Worker解除のスクリプト -->
     <script>
-        // 1. Service Workerの登録を解除
-        if ('serviceWorker' in navigator) {
-            try {
-                navigator.serviceWorker.getRegistrations().then(function(registrations) {
-                    for (let registration of registrations) {
-                        registration.unregister().then(function(boolean) {
-                            console.log('Service Worker unregistered:', boolean);
-                        }).catch(function(error) {
-                            console.warn('Service Worker unregistration failed:', error);
-                        });
-                    }
-                }).catch(function(error) {
-                    console.warn('Failed to get ServiceWorker registrations:', error);
-                });
-            } catch (error) {
-                console.warn('ServiceWorker API is restricted in this environment:', error);
+        // タブ切り替えのロジック
+        function switchTab(event, tabId) {
+            // 全てのタブボタンから active クラスを外す
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            // 全てのタブコンテンツを非表示にする
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            // クリックされたボタンと、対応するコンテンツをアクティブにする
+            event.currentTarget.classList.add('active');
+            document.getElementById('tab-' + tabId).classList.add('active');
+        }
+
+        // キャッシュクリアと強制リロードのロジック（前回のまま変更なし）
+        function forceUpdateAndReload() {
+            if (!sessionStorage.getItem('migration_reloaded')) {
+                sessionStorage.setItem('migration_reloaded', 'true');
+                window.location.href = window.location.pathname + '?v=' + new Date().getTime();
             }
         }
 
-        // 2. Cache Storageのキャッシュをすべて削除
-        if ('caches' in window) {
+        if ('serviceWorker' in navigator) {
             try {
-                caches.keys().then(function(keyList) {
-                    return Promise.all(keyList.map(function(key) {
-                        console.log('Deleting cache:', key);
-                        return caches.delete(key);
-                    }));
-                }).then(function() {
-                    // キャッシュ削除後、初回のみリロードして最新のHTMLを確実に見せる
-                    if (!sessionStorage.getItem('reloaded_for_update')) {
-                        sessionStorage.setItem('reloaded_for_update', 'true');
-                        window.location.reload(true);
+                navigator.serviceWorker.register('service-worker.js').then((registration) => {
+                    registration.update();
+                    
+                    registration.onupdatefound = () => {
+                        const installingWorker = registration.installing;
+                        if (installingWorker) {
+                            installingWorker.onstatechange = () => {
+                                if (installingWorker.state === 'installed') {
+                                    forceUpdateAndReload();
+                                }
+                            };
+                        }
+                    };
+                }).catch((error) => {
+                    console.warn('Service Worker registration failed:', error);
+                    clearCachesDirectly();
+                });
+
+                navigator.serviceWorker.getRegistrations().then((registrations) => {
+                    for (let reg of registrations) {
+                        reg.unregister().catch(err => console.warn('Unregister failed:', err));
                     }
-                }).catch(function(error) {
-                    console.warn('Cache clearing failed:', error);
+                }).catch((error) => {
+                    console.warn('Failed to get registrations:', error);
                 });
             } catch (error) {
-                console.warn('Caches API is restricted in this environment:', error);
+                console.warn('ServiceWorker API is restricted:', error);
             }
         }
+
+        function clearCachesDirectly() {
+            if ('caches' in window) {
+                try {
+                    caches.keys().then((keyList) => {
+                        Promise.all(keyList.map((key) => {
+                            return caches.delete(key);
+                        })).then(() => {
+                            forceUpdateAndReload();
+                        }).catch((err) => console.warn('Cache delete failed:', err));
+                    }).catch((err) => console.warn('Caches keys failed:', err));
+                } catch (error) {
+                    console.warn('Caches API is restricted:', error);
+                }
+            }
+        }
+        
+        clearCachesDirectly();
     </script>
 </body>
 </html>
